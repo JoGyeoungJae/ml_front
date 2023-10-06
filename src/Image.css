@@ -1,3 +1,27 @@
 .Image {
-    text-align: center;
-  }
+  text-align: center;
+}
+.imagebox {
+  border: 2px dashed #999; /* 점선 스타일의 테두리 */
+  width: 60vh; /* 원하는 가로 크기 */
+  height: 40vh; /* 원하는 세로 크기 */
+  margin: auto;
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  font-size: 16px;
+  color: #999;
+  padding: 10px;
+}
+.imagebox img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: auto; /* 이미지 가운데 정렬 */
+}
+/* 기본 버튼 스타일 */
+button {
+  padding: 3px 20px;
+  text-align: center;
+}
