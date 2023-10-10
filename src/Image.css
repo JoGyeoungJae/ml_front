@@ -35,17 +35,17 @@ body {
 iframe {
   border: 0;
 }
-.backwhite {
+/* .backwhite {
   margin: auto;
-  width: 70vh; /* 원하는 가로 크기 */
-  height: 55vh; /* 원하는 세로 크기 */
+  width: 70vh; 
+  height: 55vh; 
   background-color: white;
-  opacity: 0.5;
-}
-body {
+  opacity: 0.5; 
+} */
+/* body {
   background-image: url("C:/imageproject/background.jpg");
   opacity: 0.5;
 }
 .backwhite {
   opacity: 1;
-}
+} */

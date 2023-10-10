@@ -1,0 +1,9 @@
+.image-container {
+  display: flex; /* 이미지들을 가로로 나란히 배치 */
+}
+
+.image-item {
+  width: 300px; /* 이미지 너비를 조절 */
+  height: 200px; /* 이미지 높이를 조절 */
+  margin-right: 10px; /* 이미지 사이의 간격을 조절 */
+}
