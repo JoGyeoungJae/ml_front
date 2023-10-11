@@ -38,6 +38,22 @@ body {
 iframe {
   border: 0;
 }
+
+.backwhite {
+  margin: auto;
+  width: 70vh; 
+  height: 55vh; 
+  background-color: white;
+  opacity: 0.5; 
+} */
+/* body {
+  background-image: url("C:/imageproject/background.jpg");
+  opacity: 0.5;
+}
+.backwhite {
+  opacity: 1;
+}
+
 .paper {
   margin: auto;
   margin-top: 5vh;
@@ -53,4 +69,5 @@ body {
   height: 100%;
   background-image: url("C:/imageproject/background.jpg");
 }
+
 

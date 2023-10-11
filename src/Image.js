@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./Image.css";
+import { useNavigate } from "react-router-dom";
 
 function ImgUpload() {
   const [selectedFile, setSelectedFile] = useState(null);
-
   const [previewImage, setPreviewImage] = useState(null);
+  const [response, setResponse] = useState(""); // response 값을 상태로 관리
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -22,7 +23,7 @@ function ImgUpload() {
       setPreviewImage(null);
     }
   };
-
+  const navigate = useNavigate();
   const handleUpload = () => {
     if (selectedFile) {
       const formData = new FormData();
@@ -36,13 +37,19 @@ function ImgUpload() {
         .then((response) => response.json())
         .then((data) => {
           console.log("서버에서 받은 응답:", data);
+          const responseData = data;
+          setResponse(responseData); // response 값을 상태로 업데이트
+
+          navigate("/landinfo", { state: { responseData } });
         })
         .catch((error) => {
           console.error("업로드 및 처리 중 오류 발생:", error);
         });
     }
   };
-
+  const login = () => {
+    navigate("/login");
+  };
   return (
     <div className="Image">
       <div className="paper">
@@ -53,6 +60,9 @@ function ImgUpload() {
         <input type="file" accept="image/*" onChange={handleFileSelect} />
         <button onClick={handleUpload}>검색</button>
       </div>
+      <button className="login" onClick={login}>
+        로그인
+      </button>
     </div>
   );
 }
