@@ -4,6 +4,8 @@ import "./App.css";
 import Home from "./Image";
 import Landinfo from "./Landinfo";
 import Login from "./Login";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (

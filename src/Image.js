@@ -52,20 +52,13 @@ function ImgUpload() {
   };
   return (
     <div className="Image">
-      <div className="backwhite">
-        <h1 className="one">LandMark Scanner</h1>
-        <div className="imagebox one">
+      <div className="paper">
+        <h1>Seoul Landmark Scanner!</h1>
+        <div className="imagebox">
           {previewImage && <img src={previewImage} alt="선택한 이미지" />}
         </div>
-        <input
-          className="one"
-          type="file"
-          accept="image/*"
-          onChange={handleFileSelect}
-        />
-        <button className="one" onClick={handleUpload}>
-          검색
-        </button>
+        <input type="file" accept="image/*" onChange={handleFileSelect} />
+        <button onClick={handleUpload}>검색</button>
       </div>
       <button className="login" onClick={login}>
         로그인
