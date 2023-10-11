@@ -1,120 +1,153 @@
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./Landinfo.css";
-// function Landinfo() {
-//   const location = useLocation();
-//   const responseData = location.state && location.state.responseData;
 
-//   // responseData 값을 사용할 수 있음
-//   console.log("responseData 값:", responseData);
-
-//   // 나머지 컴포넌트 코드
-// }
 function Landinfo() {
   const location = useLocation();
   const responseData = location.state && location.state.responseData;
+  const [language, setLanguage] = useState("ko"); // 초기 언어 설정: 한국어
 
-  // responseData가 존재하지 않는 경우 빈 객체로 초기화
-  const {
-    lid,
-    nameKo,
-    nameEn,
-    mainImage,
-    mainImagePath,
-    subimage1,
-    subImage1Path,
-    subimage2,
-    subImage2Path,
-    subimage3,
-    subImage3Path,
-    subimage4,
-    subImage4Path,
-    subimage5,
-    subImage5Path,
-    addressKo,
-    addressEn,
-    tel,
-    mapUrl,
-    linfoKo,
-    linfoEn,
-  } = responseData || {};
+  const toggleLanguage = () => {
+    // 언어 변경 함수
+    setLanguage(language === "ko" ? "en" : "ko");
+  };
+
   const getImagePath = (image, imagePath) => {
     return imagePath ? `${imagePath}${image}` : image;
   };
+
   return (
-    <div>
+    <div className="container">
       {responseData ? (
-        <div>
-          <h3>
-            {nameKo} ({nameEn})
-          </h3>
-          <img
-            src={
-              process.env.PUBLIC_URL + getImagePath(mainImage, mainImagePath)
-            }
-            alt=""
-          />
-          <p>
-            위치: {addressKo} ({addressEn})
-          </p>
-          <p>전화번호: {tel}</p>
-
-          {/* 이미지 표시 */}
-
-          <div className="image-container">
+        <div className="content">
+          <div className="title-container">
+            <div className="title">
+              {language === "ko" ? responseData.nameKo : responseData.nameEn}
+            </div>
+            <div className="language-links">
+              <a onClick={toggleLanguage}>
+                {language === "ko" ? "English" : "한국어"}
+              </a>
+            </div>
+          </div>
+          <div className="main-image-container">
             <img
-              className="image-item"
+              className="main-image"
               src={
-                process.env.PUBLIC_URL + getImagePath(subimage1, subImage1Path)
-              }
-              alt=""
-            />
-            <img
-              className="image-item"
-              src={
-                process.env.PUBLIC_URL + getImagePath(subimage2, subImage2Path)
-              }
-              alt=""
-            />
-            <img
-              className="image-item"
-              src={
-                process.env.PUBLIC_URL + getImagePath(subimage3, subImage3Path)
-              }
-              alt=""
-            />
-            <img
-              className="image-item"
-              src={
-                process.env.PUBLIC_URL + getImagePath(subimage4, subImage4Path)
-              }
-              alt=""
-            />
-            <img
-              className="image-item"
-              src={
-                process.env.PUBLIC_URL + getImagePath(subimage5, subImage5Path)
+                process.env.PUBLIC_URL +
+                getImagePath(responseData.mainImage, responseData.mainImagePath)
               }
               alt=""
             />
           </div>
+          <div className="info-container">
+            <p className="info">
+              {language === "ko" ? "주소" : "Address"}:{" "}
+              {language === "ko"
+                ? responseData.addressKo
+                : responseData.addressEn}
+            </p>
+            <p className="info">
+              {language === "ko" ? "전화번호" : "Tel"}: {responseData.tel}
+            </p>
+          </div>
 
-          {/* 주소와 지도 */}
-          <p>
-            주소: {addressKo} ({addressEn})
-          </p>
-          <div dangerouslySetInnerHTML={{ __html: mapUrl }}></div>
+          {/* 이미지 표시 */}
+          <div className="image-container">
+            {responseData.subimage1 && (
+              <div className="image-item-container">
+                <img
+                  className="image-item"
+                  src={
+                    process.env.PUBLIC_URL +
+                    getImagePath(
+                      responseData.subimage1,
+                      responseData.subImage1Path
+                    )
+                  }
+                  alt=""
+                />
+              </div>
+            )}
+            {responseData.subimage2 && (
+              <div className="image-item-container">
+                <img
+                  className="image-item"
+                  src={
+                    process.env.PUBLIC_URL +
+                    getImagePath(
+                      responseData.subimage2,
+                      responseData.subImage2Path
+                    )
+                  }
+                  alt=""
+                />
+              </div>
+            )}
+            {responseData.subimage3 && (
+              <div className="image-item-container">
+                <img
+                  className="image-item"
+                  src={
+                    process.env.PUBLIC_URL +
+                    getImagePath(
+                      responseData.subimage3,
+                      responseData.subImage3Path
+                    )
+                  }
+                  alt=""
+                />
+              </div>
+            )}
+            {responseData.subimage4 && (
+              <div className="image-item-container">
+                <img
+                  className="image-item"
+                  src={
+                    process.env.PUBLIC_URL +
+                    getImagePath(
+                      responseData.subimage4,
+                      responseData.subImage4Path
+                    )
+                  }
+                  alt=""
+                />
+              </div>
+            )}
+            {responseData.subimage5 && (
+              <div className="image-item-container">
+                <img
+                  className="image-item"
+                  src={
+                    process.env.PUBLIC_URL +
+                    getImagePath(
+                      responseData.subimage5,
+                      responseData.subImage5Path
+                    )
+                  }
+                  alt=""
+                />
+              </div>
+            )}
+          </div>
+          <div className="map-container">
+            <div
+              dangerouslySetInnerHTML={{ __html: responseData.mapUrl }}
+            ></div>
+          </div>
 
           {/* 설명 */}
-          <h4>한국어 설명:</h4>
-          <p>{linfoKo}</p>
-
-          <h4>영어 설명:</h4>
-          <p>{linfoEn}</p>
+          <div className="description-container">
+            <p>
+              {language === "ko" ? responseData.linfoKo : responseData.linfoEn}
+            </p>
+          </div>
         </div>
       ) : (
-        <p>데이터가 없습니다.</p>
+        <p>{language === "ko" ? "데이터가 없습니다." : "NO Data"}</p>
       )}
     </div>
   );
 }
+
 export default Landinfo;
