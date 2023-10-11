@@ -42,7 +42,6 @@ function Landinfo() {
   };
   return (
     <div>
-      <h2>Landinfo 페이지 {lid}</h2>
       {responseData ? (
         <div>
           <h3>
