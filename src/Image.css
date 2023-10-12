@@ -56,15 +56,12 @@ button:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-
 .list-item {
   background-color: #f7f7f7;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 10px;
 }
-
-
 
 .list-item a {
   font-weight: bold;
@@ -84,4 +81,11 @@ button:hover {
   margin: 0 auto; /* 수평 가운데 정렬 */
   margin-bottom: 2%;
   padding: 10px;
+}
+.x-image {
+  width: 10px;
+  height: 10px;
+  float: right;
+  margin-right: 3px;
+  margin-top: 5px;
 }
