@@ -95,9 +95,15 @@ function ImgUpload() {
           <h1>Seoul Landmark Scanner!</h1>
           <div>사진을 업로드 하면 해당 랜드마크를 검색합니다.</div>
           <div>
-            <button className="login" onClick={login}>
-              로그인
-            </button>
+            {isLoggedIn ? (
+              <button className="register" onClick={logout}>
+                로그아웃
+              </button>
+            ) : (
+              <button className="register" onClick={login}>
+                로그인
+              </button>
+            )}
             <button className="register" onClick={register}>
               회원가입
             </button>
@@ -109,7 +115,10 @@ function ImgUpload() {
           <button onClick={handleUpload}>검색</button>
         </div>
         <div className="paper">
-          <div>검색 리스트</div>
+          <div>
+            <button>전체검색목록</button>
+            <button>나의검색목록</button>
+          </div>
           <div className="listbox">
             {responseListData.map((item, index) => (
               <div key={index} className="list-item">
@@ -118,21 +127,26 @@ function ImgUpload() {
                     {item.landInfo.nameKo}
                   </Link>
                 </div>
-                <div className="member-info">
-                  {item.member ? item.member : "비회원"}
+                {item.member ? (
+                  <div key={item.landInfo.lid} className="member-info">
+                    {item.member.mname}
+                  </div>
+                ) : (
+                  <div key={item.landInfo.lid} className="member-info">
+                    비회원
+                  </div>
+                )}
+                <div className="member-info x-info">
+                  <img
+                    className="x-image"
+                    src={process.env.PUBLIC_URL + "/img/x.png"}
+                    alt=""
+                  />
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </div>
-
-      <div>
-        {isLoggedIn ? (
-          <button onClick={logout}>로그아웃</button>
-        ) : (
-          <button onClick={login}>로그인</button>
-        )}
       </div>
     </div>
   );
