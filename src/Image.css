@@ -1,51 +1,87 @@
-.Image {
+/* Image.css */
+
+.containermain {
   text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
 }
 
+.image {
+  width: 50%;
+  margin: 0 auto; /* 수평 가운데 정렬 */
+}
 
 .imagebox {
-  border: 2px dashed #999; /* 점선 스타일의 테두리 */
-  width: 50vh; /* 원하는 가로 크기 */
-  height: 40vh; /* 원하는 세로 크기 */
-  margin: auto;
+  border: 2px dashed #999;
+  width: 50vh;
+  height: 40vh;
+  margin: 0 auto; /* 수평 가운데 정렬 */
   margin-bottom: 2%;
-  display: flex;
-  justify-content: center; /* 수평 가운데 정렬 */
-  align-items: center; /* 수직 가운데 정렬 */
   font-size: 16px;
   color: #999;
   padding: 10px;
-
 }
+
 .imagebox img {
   max-width: 100%;
   max-height: 100%;
   display: block;
-  margin: auto; /* 이미지 가운데 정렬 */
+  margin: auto; /* 이미지를 가운데 정렬 */
 }
-/* 기본 버튼 스타일 */
+
 button {
   padding: 3px 20px;
   text-align: center;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px;
 }
-body {
-  height: 100vh;
-  width: 100vw;
-  /* background-image: url("C:/imageproject/background.jpg"); */
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-iframe {
-  border: 0;
+
+button:hover {
+  background-color: #0056b3;
 }
 
 .backwhite {
-  margin: auto;
-  width: 70vh; 
-  height: 55vh; 
+  margin: 0 auto; /* 수평 가운데 정렬 */
+  width: 70vh;
+  height: 55vh;
   background-color: white;
-  opacity: 0.5; 
-} 
+  opacity: 0.5;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.list-item {
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
 
 
 
+.list-item a {
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.member-info {
+  width: 30%;
+  font-weight: bold;
+  color: #333;
+  display: contents;
+}
+.listbox {
+  width: 50vh;
+  margin: 0 auto; /* 수평 가운데 정렬 */
+  margin-bottom: 2%;
+  padding: 10px;
+}

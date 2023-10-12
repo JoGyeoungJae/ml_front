@@ -7,6 +7,10 @@ function LoginForm() {
   const [mname, setMname] = useState("");
   const [mtel, setMtel] = useState("");
 
+
+  const [mname, setMname] = useState("");
+  const [mtel, setMtel] = useState("");
+
   const formatPhoneNumber = (value) => {
     // 숫자 이외의 문자 제거
     const cleaned = value.replace(/\D/g, "");
@@ -28,6 +32,7 @@ function LoginForm() {
     }
 
     return formattedPhoneNumber;
+
   };
 
   const handlePhoneChange = (e) => {
@@ -35,6 +40,32 @@ function LoginForm() {
     const formattedValue = formatPhoneNumber(value);
     setMtel(formattedValue);
   };
+
+  const handleGoBack = () => {
+    navigate(-1); // 뒤로 가기
+  };
+
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value,
+  //   });
+  // };
+
+  };
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    const formattedValue = formatPhoneNumber(value);
+    setMtel(formattedValue);
+  };
+
 
   const handleGoBack = () => {
     navigate(-1); // 뒤로 가기
@@ -91,7 +122,11 @@ function LoginForm() {
             type="tel"
             value={mtel}
             onChange={handlePhoneChange}
+
+            placeholder="전화번호숫자만 입력하세요 (예: 010-1234-5678)"
+
             placeholder="전화번호 숫자만 입력하세요 (예: 010-1234-5678)"
+
           />
         </div>
         <div>
