@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./Landinfo.css";
 
@@ -6,21 +6,11 @@ function Landinfo() {
   const location = useLocation();
   const responseData = location.state && location.state.responseData;
   const [language, setLanguage] = useState("ko"); // 초기 언어 설정: 한국어
-
-  useEffect(() => {
-    // Spring Boot 서버의 홈 엔드포인트 호출
-    fetch("http://localhost:8080/landinfo/1")
-      .then((response) => response.json())
-      .then((data) => {
-        responseData = data;
-        console.log(responseData);
-      })
-      .catch((error) => console.error("서버 호출 오류:", error));
-  }, []);
+  console.log("랜드마크 페이지 : " + responseData);
 
   const isLoggedIn = !!window.sessionStorage.getItem("user"); // "user" 데이터가 있으면 isLoggedIn은 true, 없으면 false
   // 로그인된 회원번호 확인하기
-  if (isLoggedIn == true) {
+  if (isLoggedIn === true) {
     console.log("로그인 상태 mid=" + window.sessionStorage.getItem("user"));
   } else {
     console.log("로그아웃 상태");
@@ -61,7 +51,7 @@ function Landinfo() {
           </div>
           <div className="info-container">
             <p className="info">
-              {language === "ko" ? "주소" : "Address"}:{" "}
+              {language === "ko" ? "주소" : "Address"}:
               {language === "ko"
                 ? responseData.addressKo
                 : responseData.addressEn}

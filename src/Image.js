@@ -7,8 +7,8 @@ function ImgUpload() {
   const [previewImage, setPreviewImage] = useState(null);
   const [response, setResponse] = useState(""); // response 값을 상태로 관리
   const [responseListData, setResponseListData] = useState([]);
+  const [language, setLanguage] = useState("ko"); // 초기 언어 설정: 한국어
   const [filteredList, setFilteredList] = useState([]);
-
   const [displayedData, setDisplayedData] = useState([]);
 
   useEffect(() => {
@@ -101,52 +101,84 @@ function ImgUpload() {
   const register = () => {
     navigate("/register");
   };
+  const golandmark = (index) => {
+    console.log(index);
+    console.log(JSON.stringify(responseListData[index]));
+    const responseData = responseListData[index].landInfo;
+    setResponse(responseData); // response 값을 상태로 업데이트
 
+    navigate("/landinfo", { state: { responseData } });
+  };
   const logout = () => {
     window.sessionStorage.removeItem("user");
     // 세션 스토리지에서 "user" 데이터를 삭제하고
     // isLoggedIn 값도 false로 설정하여 로그아웃 버튼을 숨깁니다.
     navigate("/");
   };
+  const toggleLanguage = () => {
+    // 언어 변경 함수
+    setLanguage(language === "ko" ? "en" : "ko");
+  };
 
   return (
     <div className="containermain">
       <div className="image">
         <div className="paper">
-          <h1>Seoul Landmark Scanner!</h1>
-          <div>사진을 업로드 하면 해당 랜드마크를 검색합니다.</div>
+          <h1>
+            {language === "ko"
+              ? "서울 랜드마크 스캐너!"
+              : "Seoul Landmark Scanner!"}
+          </h1>
+          <div className="language-links">
+            <a onClick={toggleLanguage}>
+              {language === "ko" ? "English" : "한국어"}
+            </a>
+          </div>
+          <div>
+            {language === "ko"
+              ? "사진을 업로드 하면 해당 랜드마크를 검색합니다."
+              : "When you upload a photo, it searches for the corresponding landmark."}
+          </div>
           <div>
             {isLoggedIn ? (
               <button className="register" onClick={logout}>
-                로그아웃
+                {language === "ko" ? "로그아웃" : "Logout"}
               </button>
             ) : (
               <button className="register" onClick={login}>
-                로그인
+                {language === "ko" ? "로그인" : "Login"}
               </button>
             )}
             <button className="register" onClick={register}>
-              회원가입
+              {language === "ko" ? "회원가입" : "Sign up"}
             </button>
           </div>
           <div className="imagebox">
             {previewImage && <img src={previewImage} alt="선택한 이미지" />}
           </div>
           <input type="file" accept="image/*" onChange={handleFileSelect} />
-          <button onClick={handleUpload}>검색</button>
+          <button onClick={handleUpload}>
+            {language === "ko" ? "검색" : "Search"}
+          </button>
         </div>
         <div className="paper">
           <div>
-            <button onClick={handleShowAllData}>전체검색목록</button>
-            <button onClick={handleShowMyData}>나의검색목록</button>
+            <button onClick={handleShowAllData}>
+              {language === "ko" ? "전체검색목록" : "Full Search List"}
+            </button>
+            <button onClick={handleShowMyData}>
+              {language === "ko" ? "나의검색목록" : "My Search List"}
+            </button>
           </div>
           <div className="listbox">
             {displayedData.map((item, index) => (
               <div key={index} className="list-item">
                 <div className="member-info">
-                  <Link to={`/landinfo/${item.landInfo.lid}`}>
-                    {item.landInfo.nameKo}
-                  </Link>
+                  <span onClick={() => golandmark(index)}>
+                    {language === "ko"
+                      ? item.landInfo.nameKo
+                      : item.landInfo.nameEn}
+                  </span>
                 </div>
                 {item.member ? (
                   <div key={item.landInfo.lid} className="member-info">
@@ -154,7 +186,7 @@ function ImgUpload() {
                   </div>
                 ) : (
                   <div key={item.landInfo.lid} className="member-info">
-                    비회원
+                    {language === "ko" ? "비회원" : "guest"}
                   </div>
                 )}
                 <div className="member-info x-info">
