@@ -4,8 +4,7 @@ import "./App.css";
 import Home from "./Image";
 import Landinfo from "./Landinfo";
 import Login from "./Login";
-import logo from "./logo.svg";
-import "./App.css";
+import Register from "./Register";
 
 function App() {
   return (
@@ -15,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/landinfo" element={<Landinfo />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </Router>

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-function LoginForm() {
-  const navigate = useNavigate();
+import "./Register.css";
 
+function Register() {
   const [mname, setMname] = useState("");
   const [mtel, setMtel] = useState("");
+
   const formatPhoneNumber = (value) => {
     // 숫자 이외의 문자 제거
     const cleaned = value.replace(/\D/g, "");
@@ -34,40 +35,49 @@ function LoginForm() {
     setMtel(formattedValue);
   };
 
-  const handleGoBack = () => {
-    navigate(-1); // 뒤로 가기
-  };
+  const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  // };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 여기에서 서버로 로그인 요청을 보내거나, 로컬 상태를 확인할 수 있습니다.
-    // 예를 들어, 사용자 이름과 비밀번호가 "admin"과 "password"인 경우에만 로그인 성공으로 처리합니다.
-    if (formData.username === "admin" && formData.password === "password") {
-      alert("로그인 성공");
-    } else {
-      alert("로그인 실패. 사용자 이름과 비밀번호를 확인하세요.");
+
+    const newUser = { mname, mtel };
+
+    try {
+      const response = await fetch("http://localhost:8080/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (response.ok) {
+        console.log("등록 성공");
+        setMname("");
+        setMtel("");
+
+        navigate("/login");
+      } else {
+        console.error("등록 실패");
+      }
+    } catch (error) {
+      console.error("등록 요청 실패", error);
     }
   };
 
+  const handleGoBack = () => {
+    navigate("/"); // 홈
+  };
+
+  const loginGo = () => {
+    navigate("/login"); // 로그인
+  };
+
   return (
-    <div>
-      <h2>로그인</h2>
+    <div className="register-container">
+      <h2>회원가입</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">이름:</label>
           <input
             type="text"
             value={mname}
@@ -76,7 +86,6 @@ function LoginForm() {
           />
         </div>
         <div>
-          <label htmlFor="password">핸드폰 번호:</label>
           <input
             type="tel"
             value={mtel}
@@ -85,12 +94,15 @@ function LoginForm() {
           />
         </div>
         <div>
-          <button type="submit">로그인</button>
+          <button type="submit">가입</button>
         </div>
       </form>
-      <button onClick={handleGoBack}>뒤로 가기</button>
+      <div className="buttons">
+        <button onClick={handleGoBack}>홈으로</button>
+        <button onClick={loginGo}>로그인</button>
+      </div>
     </div>
   );
 }
 
-export default LoginForm;
+export default Register;

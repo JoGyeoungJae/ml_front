@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./Landinfo.css";
 
@@ -6,6 +6,16 @@ function Landinfo() {
   const location = useLocation();
   const responseData = location.state && location.state.responseData;
   const [language, setLanguage] = useState("ko"); // 초기 언어 설정: 한국어
+  useEffect(() => {
+    // Spring Boot 서버의 홈 엔드포인트 호출
+    fetch("http://localhost:8080/landinfo/1")
+      .then((response) => response.json())
+      .then((data) => {
+        responseData = data;
+        console.log(responseData);
+      })
+      .catch((error) => console.error("서버 호출 오류:", error));
+  }, []);
 
   const toggleLanguage = () => {
     // 언어 변경 함수
