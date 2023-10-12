@@ -10,6 +10,8 @@ function ImgUpload() {
   const [language, setLanguage] = useState("ko"); // 초기 언어 설정: 한국어
   const [filteredList, setFilteredList] = useState([]);
   const [displayedData, setDisplayedData] = useState([]);
+  const userString = window.sessionStorage.getItem("user"); // "user" 키의 값을 가져옵니다.
+  const user = JSON.parse(userString); // JSON 문자열을 파싱하여 JavaScript 객체로 변환합니다.
 
   useEffect(() => {
     // Spring Boot 서버의 홈 엔드포인트 호출
@@ -21,14 +23,13 @@ function ImgUpload() {
         console.log(responseListData);
 
         // responseListData 배열을 필터링하여 member가 null이 아니면서 만 추출
-        const filteredList = responseListData.filter(
-          (item) =>
-            item.member !== null &&
-            item.member.mid ===
-              parseInt(window.sessionStorage.getItem("user"), 10)
-        );
-        setFilteredList(filteredList);
-        console.log(filteredList);
+        if (user !== null) {
+          const filteredList = responseListData.filter(
+            (item) => item.member !== null && item.member.mid === user.mid
+          );
+          setFilteredList(filteredList);
+          console.log(filteredList);
+        }
       })
       .catch((error) => console.error("서버 호출 오류:", error));
   }, []);
@@ -36,7 +37,7 @@ function ImgUpload() {
   const isLoggedIn = !!window.sessionStorage.getItem("user"); // "user" 데이터가 있으면 isLoggedIn은 true, 없으면 false
   // 로그인된 회원번호 확인하기
   if (isLoggedIn === true) {
-    console.log("로그인 상태 mid=" + window.sessionStorage.getItem("user"));
+    console.log("로그인 상태 mid=" + user.mid);
   } else {
     console.log("로그아웃 상태");
   }
@@ -71,10 +72,8 @@ function ImgUpload() {
       const formData = new FormData();
       formData.append("image", selectedFile);
 
-      //로그인되어있으면 유저번호, 안되어있으면 0을 보내기
-      const loginStatus = isLoggedIn
-        ? window.sessionStorage.getItem("user")
-        : 0;
+      //로그인되어있으면 유저번호, 안되어있으면 null을 보내기
+      const loginStatus = isLoggedIn ? user.mid : null;
       formData.append("login", loginStatus);
 
       // 서버로 이미지를 POST 요청으로 전송
@@ -113,11 +112,36 @@ function ImgUpload() {
     window.sessionStorage.removeItem("user");
     // 세션 스토리지에서 "user" 데이터를 삭제하고
     // isLoggedIn 값도 false로 설정하여 로그아웃 버튼을 숨깁니다.
-    navigate("/");
+    window.location.reload();
   };
   const toggleLanguage = () => {
     // 언어 변경 함수
     setLanguage(language === "ko" ? "en" : "ko");
+  };
+  const del = (index) => {
+    const confirmed = window.confirm("정말로 삭제하시겠습니까?"); // 확인 대화상자 표시
+
+    if (confirmed) {
+      const slid = JSON.stringify(responseListData[index].slid);
+      console.log("사용자가 확인을 눌렀습니다." + slid);
+      // 삭제 요청을 보내거나 다른 삭제 작업을 수행할 수 있습니다.
+      fetch(`http://localhost:8080/del?index=${slid}`, {
+        method: "POST",
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          console.log(data);
+          const updatedList = [...displayedData];
+          updatedList.splice(index, 1);
+          setDisplayedData(updatedList);
+        })
+        .catch((error) => {
+          console.error("업로드 및 처리 중 오류 발생:", error);
+        });
+    } else {
+      console.log("사용자가 취소를 눌렀습니다.");
+      // 사용자가 삭제를 취소한 경우 수행할 작업을 여기에 추가할 수 있습니다.
+    }
   };
 
   return (
@@ -189,13 +213,16 @@ function ImgUpload() {
                     {language === "ko" ? "비회원" : "guest"}
                   </div>
                 )}
-                <div className="member-info x-info">
-                  <img
-                    className="x-image"
-                    src={process.env.PUBLIC_URL + "/img/x.png"}
-                    alt=""
-                  />
-                </div>
+                {user !== null && user.role === "ADMIN" && (
+                  <div className="member-info x-info">
+                    <img
+                      className="x-image"
+                      src={process.env.PUBLIC_URL + "/img/x.png"}
+                      alt=""
+                      onClick={() => del(index)}
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </div>
