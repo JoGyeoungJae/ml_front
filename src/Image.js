@@ -8,7 +8,6 @@ function ImgUpload() {
   const [response, setResponse] = useState(""); // response 값을 상태로 관리
   const [responseListData, setResponseListData] = useState([]);
 
-
   useEffect(() => {
     // Spring Boot 서버의 홈 엔드포인트 호출
     fetch("http://localhost:8080/")
@@ -28,7 +27,6 @@ function ImgUpload() {
   } else {
     console.log("로그아웃 상태");
   }
-
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -51,7 +49,6 @@ function ImgUpload() {
     if (selectedFile) {
       const formData = new FormData();
       formData.append("image", selectedFile);
-
 
       //로그인되어있으면 유저번호, 안되어있으면 0을 보내기
       const loginStatus = isLoggedIn
@@ -83,7 +80,6 @@ function ImgUpload() {
   const register = () => {
     navigate("/register");
   };
-
 
   const logout = () => {
     window.sessionStorage.removeItem("user");
@@ -138,7 +134,6 @@ function ImgUpload() {
           <button onClick={login}>로그인</button>
         )}
       </div>
-
     </div>
   );
 }
