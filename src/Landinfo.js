@@ -26,7 +26,6 @@ function Landinfo() {
     console.log("로그아웃 상태");
   }
 
-
   const toggleLanguage = () => {
     // 언어 변경 함수
     setLanguage(language === "ko" ? "en" : "ko");
