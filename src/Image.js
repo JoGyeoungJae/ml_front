@@ -8,6 +8,7 @@ function ImgUpload() {
   const [response, setResponse] = useState(""); // response 값을 상태로 관리
   const [responseListData, setResponseListData] = useState([]);
 
+
   useEffect(() => {
     // Spring Boot 서버의 홈 엔드포인트 호출
     fetch("http://localhost:8080/")
@@ -19,6 +20,16 @@ function ImgUpload() {
       })
       .catch((error) => console.error("서버 호출 오류:", error));
   }, []);
+
+  const isLoggedIn = !!window.sessionStorage.getItem("user"); // "user" 데이터가 있으면 isLoggedIn은 true, 없으면 false
+  // 로그인된 회원번호 확인하기
+  if (isLoggedIn == true) {
+    console.log("로그인 상태 mid=" + window.sessionStorage.getItem("user"));
+  } else {
+    console.log("로그아웃 상태");
+  }
+
+
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
@@ -40,6 +51,14 @@ function ImgUpload() {
     if (selectedFile) {
       const formData = new FormData();
       formData.append("image", selectedFile);
+
+
+      //로그인되어있으면 유저번호, 안되어있으면 0을 보내기
+      const loginStatus = isLoggedIn
+        ? window.sessionStorage.getItem("user")
+        : 0;
+      formData.append("login", loginStatus);
+
       // 서버로 이미지를 POST 요청으로 전송
       fetch("http://localhost:8080/upload", {
         method: "POST",
@@ -60,9 +79,19 @@ function ImgUpload() {
   const login = () => {
     navigate("/login");
   };
+
   const register = () => {
     navigate("/register");
   };
+
+
+  const logout = () => {
+    window.sessionStorage.removeItem("user");
+    // 세션 스토리지에서 "user" 데이터를 삭제하고
+    // isLoggedIn 값도 false로 설정하여 로그아웃 버튼을 숨깁니다.
+    navigate("/");
+  };
+
   return (
     <div className="containermain">
       <div className="image">
@@ -101,6 +130,15 @@ function ImgUpload() {
           </div>
         </div>
       </div>
+
+      <div>
+        {isLoggedIn ? (
+          <button onClick={logout}>로그아웃</button>
+        ) : (
+          <button onClick={login}>로그인</button>
+        )}
+      </div>
+
     </div>
   );
 }

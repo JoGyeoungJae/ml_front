@@ -6,6 +6,7 @@ function Landinfo() {
   const location = useLocation();
   const responseData = location.state && location.state.responseData;
   const [language, setLanguage] = useState("ko"); // 초기 언어 설정: 한국어
+
   useEffect(() => {
     // Spring Boot 서버의 홈 엔드포인트 호출
     fetch("http://localhost:8080/landinfo/1")
@@ -16,6 +17,15 @@ function Landinfo() {
       })
       .catch((error) => console.error("서버 호출 오류:", error));
   }, []);
+
+  const isLoggedIn = !!window.sessionStorage.getItem("user"); // "user" 데이터가 있으면 isLoggedIn은 true, 없으면 false
+  // 로그인된 회원번호 확인하기
+  if (isLoggedIn == true) {
+    console.log("로그인 상태 mid=" + window.sessionStorage.getItem("user"));
+  } else {
+    console.log("로그아웃 상태");
+  }
+
 
   const toggleLanguage = () => {
     // 언어 변경 함수
