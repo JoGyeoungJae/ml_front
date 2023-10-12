@@ -7,10 +7,6 @@ function LoginForm() {
   const [mname, setMname] = useState("");
   const [mtel, setMtel] = useState("");
 
-
-  const [mname, setMname] = useState("");
-  const [mtel, setMtel] = useState("");
-
   const formatPhoneNumber = (value) => {
     // 숫자 이외의 문자 제거
     const cleaned = value.replace(/\D/g, "");
@@ -32,7 +28,6 @@ function LoginForm() {
     }
 
     return formattedPhoneNumber;
-
   };
 
   const handlePhoneChange = (e) => {
@@ -40,32 +35,6 @@ function LoginForm() {
     const formattedValue = formatPhoneNumber(value);
     setMtel(formattedValue);
   };
-
-  const handleGoBack = () => {
-    navigate(-1); // 뒤로 가기
-  };
-
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  // };
-
-  };
-
-  const handlePhoneChange = (e) => {
-    const value = e.target.value;
-    const formattedValue = formatPhoneNumber(value);
-    setMtel(formattedValue);
-  };
-
 
   const handleGoBack = () => {
     navigate(-1); // 뒤로 가기
@@ -99,7 +68,6 @@ function LoginForm() {
     } catch (error) {
       console.error("오류 발생: " + error.message);
       alert("로그인 실패. 사용자 이름과 비밀번호를 확인하세요.");
-      // 여기에서 오류가 발생했을 때의 동작을 수행
     }
   };
 
@@ -108,7 +76,7 @@ function LoginForm() {
       <h2>로그인</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">이름:</label>
+          <label htmlFor="mname">이름:</label>
           <input
             type="text"
             value={mname}
@@ -117,16 +85,12 @@ function LoginForm() {
           />
         </div>
         <div>
-          <label htmlFor="password">핸드폰 번호:</label>
+          <label htmlFor="mtel">핸드폰 번호:</label>
           <input
             type="tel"
             value={mtel}
             onChange={handlePhoneChange}
-
-            placeholder="전화번호숫자만 입력하세요 (예: 010-1234-5678)"
-
             placeholder="전화번호 숫자만 입력하세요 (예: 010-1234-5678)"
-
           />
         </div>
         <div>
