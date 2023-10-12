@@ -8,6 +8,9 @@ function ImgUpload() {
   const [response, setResponse] = useState(""); // response 값을 상태로 관리
   const [responseListData, setResponseListData] = useState([]);
   const [language, setLanguage] = useState("ko"); // 초기 언어 설정: 한국어
+  const [filteredList, setFilteredList] = useState([]);
+  const [displayedData, setDisplayedData] = useState([]);
+
   useEffect(() => {
     // Spring Boot 서버의 홈 엔드포인트 호출
     fetch("http://localhost:8080/")
@@ -16,6 +19,16 @@ function ImgUpload() {
         const responseListData = data;
         setResponseListData(responseListData); // response 값을 상태로 업데이트
         console.log(responseListData);
+
+        // responseListData 배열을 필터링하여 member가 null이 아니면서 만 추출
+        const filteredList = responseListData.filter(
+          (item) =>
+            item.member !== null &&
+            item.member.mid ===
+              parseInt(window.sessionStorage.getItem("user"), 10)
+        );
+        setFilteredList(filteredList);
+        console.log(filteredList);
       })
       .catch((error) => console.error("서버 호출 오류:", error));
   }, []);
@@ -27,6 +40,14 @@ function ImgUpload() {
   } else {
     console.log("로그아웃 상태");
   }
+
+  const handleShowAllData = () => {
+    setDisplayedData(responseListData);
+  };
+
+  const handleShowMyData = () => {
+    setDisplayedData(filteredList);
+  };
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -142,15 +163,15 @@ function ImgUpload() {
         </div>
         <div className="paper">
           <div>
-            <button>
+            <button onClick={handleShowAllData}>
               {language === "ko" ? "전체검색목록" : "Full Search List"}
             </button>
-            <button>
+            <button onClick={handleShowMyData}>
               {language === "ko" ? "나의검색목록" : "My Search List"}
             </button>
           </div>
           <div className="listbox">
-            {responseListData.map((item, index) => (
+            {displayedData.map((item, index) => (
               <div key={index} className="list-item">
                 <div className="member-info">
                   <span onClick={() => golandmark(index)}>
