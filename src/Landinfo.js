@@ -5,7 +5,10 @@ import "./Landinfo.css";
 function Landinfo() {
   const location = useLocation();
   const responseData = location.state && location.state.responseData;
-  const [language, setLanguage] = useState("ko"); // 초기 언어 설정: 한국어
+
+  const lan = window.sessionStorage.getItem("language");
+  const [language, setLanguage] = useState(lan); // 초기 언어 설정: 세션에 저장된정보
+
   console.log("랜드마크 페이지 : " + responseData);
 
   const isLoggedIn = !!window.sessionStorage.getItem("user"); // "user" 데이터가 있으면 isLoggedIn은 true, 없으면 false
@@ -19,6 +22,9 @@ function Landinfo() {
   const toggleLanguage = () => {
     // 언어 변경 함수
     setLanguage(language === "ko" ? "en" : "ko");
+    language === "ko"
+      ? window.sessionStorage.setItem("language", "en")
+      : window.sessionStorage.setItem("language", "ko");
   };
 
   const getImagePath = (image, imagePath) => {

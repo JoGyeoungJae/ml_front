@@ -7,7 +7,15 @@ function ImgUpload() {
   const [previewImage, setPreviewImage] = useState(null);
   const [response, setResponse] = useState(""); // response 값을 상태로 관리
   const [responseListData, setResponseListData] = useState([]);
-  const [language, setLanguage] = useState("ko"); // 초기 언어 설정: 한국어
+
+  // lan의 초기값을 "ko"로 설정
+  const lan = "ko";
+  // 이미 sessionStorage에 "language" 키가 설정되어 있다면 그 값을 사용
+  const storedLanguage = window.sessionStorage.getItem("language");
+  const initialLanguage = storedLanguage || lan;
+  // useState로 초기 언어 설정
+  const [language, setLanguage] = useState(initialLanguage);
+
   const [filteredList, setFilteredList] = useState([]);
   const [displayedData, setDisplayedData] = useState([]);
   const userString = window.sessionStorage.getItem("user"); // "user" 키의 값을 가져옵니다.
@@ -62,6 +70,10 @@ function ImgUpload() {
       };
 
       reader.readAsDataURL(file);
+      const container = document.querySelector(".message");
+      if (container) {
+        container.remove();
+      }
     } else {
       setPreviewImage(null);
     }
@@ -91,6 +103,19 @@ function ImgUpload() {
         .catch((error) => {
           console.error("업로드 및 처리 중 오류 발생:", error);
         });
+    } else {
+      console.log("파일없음");
+      const messageDiv = document.createElement("div");
+      messageDiv.textContent = "파일을 선택해주세요.";
+      messageDiv.classList.add("message");
+
+      const container = document.querySelector(".imagebox");
+
+      while (container.firstChild) {
+        container.removeChild(container.firstChild);
+      }
+
+      container.appendChild(messageDiv);
     }
   };
   const login = () => {
@@ -117,6 +142,9 @@ function ImgUpload() {
   const toggleLanguage = () => {
     // 언어 변경 함수
     setLanguage(language === "ko" ? "en" : "ko");
+    language === "ko"
+      ? window.sessionStorage.setItem("language", "en")
+      : window.sessionStorage.setItem("language", "ko");
   };
   const del = (index) => {
     const confirmed = window.confirm("정말로 삭제하시겠습니까?"); // 확인 대화상자 표시
@@ -169,13 +197,15 @@ function ImgUpload() {
                 {language === "ko" ? "로그아웃" : "Logout"}
               </button>
             ) : (
-              <button className="register" onClick={login}>
-                {language === "ko" ? "로그인" : "Login"}
-              </button>
+              <>
+                <button className="register" onClick={login}>
+                  {language === "ko" ? "로그인" : "Login"}
+                </button>
+                <button className="register" onClick={register}>
+                  {language === "ko" ? "회원가입" : "Sign up"}
+                </button>
+              </>
             )}
-            <button className="register" onClick={register}>
-              {language === "ko" ? "회원가입" : "Sign up"}
-            </button>
           </div>
           <div className="imagebox">
             {previewImage && <img src={previewImage} alt="선택한 이미지" />}
@@ -190,14 +220,17 @@ function ImgUpload() {
             <button onClick={handleShowAllData}>
               {language === "ko" ? "전체검색목록" : "Full Search List"}
             </button>
-            <button onClick={handleShowMyData}>
-              {language === "ko" ? "나의검색목록" : "My Search List"}
-            </button>
+            {isLoggedIn && (
+              <button onClick={handleShowMyData}>
+                {language === "ko" ? "나의검색목록" : "My Search List"}
+              </button>
+            )}
+            <button>관광지 통계</button>
           </div>
           <div className="listbox">
             {displayedData.map((item, index) => (
               <div key={index} className="list-item">
-                <div className="member-info">
+                <div className="member-titleinfo">
                   <span onClick={() => golandmark(index)}>
                     {language === "ko"
                       ? item.landInfo.nameKo
@@ -205,16 +238,16 @@ function ImgUpload() {
                   </span>
                 </div>
                 {item.member ? (
-                  <div key={item.landInfo.lid} className="member-info">
+                  <div key={item.landInfo.lid} className="member-nameinfo">
                     {item.member.mname}
                   </div>
                 ) : (
-                  <div key={item.landInfo.lid} className="member-info">
+                  <div key={item.landInfo.lid} className="member-nameinfo">
                     {language === "ko" ? "비회원" : "guest"}
                   </div>
                 )}
                 {user !== null && user.role === "ADMIN" && (
-                  <div className="member-info x-info">
+                  <div className="member-xinfo">
                     <img
                       className="x-image"
                       src={process.env.PUBLIC_URL + "/img/x.png"}
