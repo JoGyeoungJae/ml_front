@@ -29,6 +29,10 @@
   display: block;
   margin: auto; /* 이미지를 가운데 정렬 */
 }
+.imagebox div {
+  font-size: 20px;
+  color: red;
+}
 
 button {
   padding: 3px 20px;
@@ -70,8 +74,32 @@ button:hover {
   margin-right: 10px;
 }
 
-.member-info {
-  width: 30%;
+.member-titleinfo {
+  width: 50%;
+  font-weight: bold;
+  color: #333;
+  display: inline;
+  float: left;
+  padding-left: 3%;
+}
+.member-titleinfo span {
+  color: blue; /* 텍스트 색상을 변경 */
+  float: left;
+}
+.member-titleinfo span:hover {
+  /* 마우스가 요소 위에 올라갔을 때 표시할 스타일 */
+  font-weight: bold; /* 텍스트 굵기를 변경 */
+  color: red; /* 텍스트 색상을 변경 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 (클릭 가능한 요소임을 나타냄) */
+}
+.member-nameinfo {
+  width: 40%;
+  font-weight: bold;
+  color: #333;
+  display: contents;
+}
+.member-xinfo {
+  width: 10%;
   font-weight: bold;
   color: #333;
   display: contents;
