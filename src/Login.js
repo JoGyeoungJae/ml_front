@@ -8,6 +8,9 @@ function LoginForm() {
   const [mname, setMname] = useState("");
   const [mtel, setMtel] = useState("");
 
+  const lan = window.sessionStorage.getItem("language");
+  const [language, setLanguage] = useState(lan); // 초기 언어 설정: 세션에 저장된정보
+
   const formatPhoneNumber = (value) => {
     // 숫자 이외의 문자 제거
     const cleaned = value.replace(/\D/g, "");
@@ -15,6 +18,14 @@ function LoginForm() {
     let formattedPhoneNumber = "";
     formattedPhoneNumber = cleaned;
     return formattedPhoneNumber;
+  };
+
+  const toggleLanguage = () => {
+    // 언어 변경 함수
+    setLanguage(language === "ko" ? "en" : "ko");
+    language === "ko"
+      ? window.sessionStorage.setItem("language", "en")
+      : window.sessionStorage.setItem("language", "ko");
   };
 
   const handlePhoneChange = (e) => {
@@ -56,12 +67,18 @@ function LoginForm() {
       alert("로그인 실패. 사용자 이름과 비밀번호를 확인하세요.");
     }
   };
+
   const register = () => {
     navigate("/register");
   };
   return (
     <div className="login-container">
-      <h2>로그인</h2>
+      <div className="language-links">
+        <a onClick={toggleLanguage}>
+          {language === "ko" ? "English" : "한국어"}
+        </a>
+      </div>
+      <h2>{language === "ko" ? "로그인" : "Sign in"}</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="mname"></label>
@@ -70,7 +87,9 @@ function LoginForm() {
             id="mname"
             value={mname}
             onChange={(e) => setMname(e.target.value)}
-            placeholder="이름을 입력하세요"
+            placeholder={
+              language === "ko" ? "이름을 입력하세요" : "Enter your name"
+            }
           />
         </div>
         <div>
@@ -80,13 +99,23 @@ function LoginForm() {
             id="mtel"
             value={mtel}
             onChange={handlePhoneChange}
-            placeholder="전화번호 숫자만 입력하세요 (예: 01012345678)"
+            placeholder={
+              language === "ko"
+                ? "전화번호를 입력하세요 (예: 01012345678)"
+                : "Enter your phone number (ex: 01012345678)"
+            }
           />
         </div>
         <div>
-          <button type="submit">로그인</button>
-          <button onClick={handleGoBack}>홈으로</button>
-          <button onClick={register}>회원가입</button>
+          <button type="submit">
+            {language === "ko" ? "로그인" : "Sign in"}
+          </button>
+          <button onClick={handleGoBack}>
+            {language === "ko" ? "홈으로" : "Home"}
+          </button>
+          <button onClick={register}>
+            {language === "ko" ? "회원가입" : "Sign up"}
+          </button>
         </div>
       </form>
     </div>
