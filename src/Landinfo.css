@@ -1,5 +1,16 @@
 /* Landinfo.css */
+html,
+body {
+  height: 100%;
+  margin: 0; /* 모든 margin을 제거하여 body가 화면에 꽉 차도록 합니다. */
+  padding: 0; /* 모든 padding을 제거하여 body가 화면에 꽉 차도록 합니다. */
+}
 
+body {
+  /* background-image: url("D:/lastpro_fornt/ml_front/public/img/background.png"); */
+  background-image: url("D:/lastpro_fornt/ml_front/public/img/background1.jpg");
+  background-size: cover;
+}
 .container {
   display: flex;
   flex-direction: column;
