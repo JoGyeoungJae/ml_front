@@ -1,25 +1,40 @@
 /* Image.css */
+html,
+body {
+  height: 100%;
+  margin: 0; /* 모든 margin을 제거하여 body가 화면에 꽉 차도록 합니다. */
+  padding: 0; /* 모든 padding을 제거하여 body가 화면에 꽉 차도록 합니다. */
+}
 
+body {
+  /* background-image: url("D:/lastpro_fornt/ml_front/public/img/background.png"); */
+  background-image: url("D:/lastpro_fornt/ml_front/public/img/background1.jpg");
+  background-size: cover;
+}
+.blue-text {
+  color: blue;
+  font-weight: bold;
+}
 .containermain {
   text-align: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
 }
-
 .image {
   width: 50%;
   margin: 0 auto; /* 수평 가운데 정렬 */
-}
 
+  background-color: rgba(255, 255, 255, 0.8);
+}
 .imagebox {
-  border: 2px dashed #999;
+  border: 4px dashed blue;
   width: 50vh;
   height: 40vh;
   margin: 0 auto; /* 수평 가운데 정렬 */
   margin-bottom: 2%;
   font-size: 16px;
-  color: #999;
+  color: blue;
   padding: 10px;
 }
 

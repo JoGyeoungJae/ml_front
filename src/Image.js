@@ -173,20 +173,20 @@ function ImgUpload() {
   };
 
   return (
-    <div className="containermain">
+    <div className="containermain ">
       <div className="image">
         <div className="paper">
-          <h1>
+          <h1 className="blue-text">
             {language === "ko"
               ? "서울 랜드마크 스캐너!"
               : "Seoul Landmark Scanner!"}
           </h1>
-          <div className="language-links">
+          <div className="language-links blue-text">
             <a onClick={toggleLanguage}>
               {language === "ko" ? "English" : "한국어"}
             </a>
           </div>
-          <div>
+          <div className="blue-text">
             {language === "ko"
               ? "사진을 업로드 하면 해당 랜드마크를 검색합니다."
               : "When you upload a photo, it searches for the corresponding landmark."}
@@ -210,7 +210,12 @@ function ImgUpload() {
           <div className="imagebox">
             {previewImage && <img src={previewImage} alt="선택한 이미지" />}
           </div>
-          <input type="file" accept="image/*" onChange={handleFileSelect} />
+          <input
+            type="file"
+            className="file-input"
+            accept="image/*"
+            onChange={handleFileSelect}
+          />
           <button onClick={handleUpload}>
             {language === "ko" ? "검색" : "Search"}
           </button>
@@ -225,7 +230,6 @@ function ImgUpload() {
                 {language === "ko" ? "나의검색목록" : "My Search List"}
               </button>
             )}
-            <button>관광지 통계</button>
           </div>
           <div className="listbox">
             {displayedData.map((item, index) => (
