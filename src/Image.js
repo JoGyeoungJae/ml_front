@@ -51,11 +51,23 @@ function ImgUpload() {
   }
 
   const handleShowAllData = () => {
-    setDisplayedData(responseListData);
+    if (displayedData.length > 0) {
+      // 현재 데이터가 표시 중이면, 숨기기 위해 데이터를 비웁니다.
+      setDisplayedData([]);
+    } else {
+      // 현재 데이터가 표시되지 않는 경우, 전체 목록을 표시합니다.
+      setDisplayedData(responseListData);
+    }
   };
 
   const handleShowMyData = () => {
-    setDisplayedData(filteredList);
+    if (displayedData.length > 0) {
+      // 현재 데이터가 표시 중이면, 숨기기 위해 데이터를 비웁니다.
+      setDisplayedData([]);
+    } else {
+      // 현재 데이터가 표시되지 않는 경우, 필터링된 목록을 표시합니다.
+      setDisplayedData(filteredList);
+    }
   };
 
   const handleFileSelect = (e) => {
@@ -106,7 +118,7 @@ function ImgUpload() {
     } else {
       console.log("파일없음");
       const messageDiv = document.createElement("div");
-      messageDiv.textContent = "파일을 선택해주세요.";
+      messageDiv.textContent = "파일을 선택해주세요";
       messageDiv.classList.add("message");
 
       const container = document.querySelector(".imagebox");
@@ -173,8 +185,8 @@ function ImgUpload() {
   };
 
   return (
-    <div className="containermain ">
-      <div className="image">
+    <div className="bigbox">
+      <div className="box1">
         <div className="paper">
           <h1 className="blue-text">
             {language === "ko"
@@ -207,62 +219,71 @@ function ImgUpload() {
               </>
             )}
           </div>
-          <div className="imagebox">
-            {previewImage && <img src={previewImage} alt="선택한 이미지" />}
-          </div>
+        </div>
+      </div>
+      <div className="box2"></div>
+
+      <div className="imagebox">
+        {previewImage && <img src={previewImage} alt="선택한 이미지" />}
+      </div>
+
+      <div className="box4"></div>
+      <div className="box5">
+        <span className="p1">
           <input
             type="file"
             className="file-input"
             accept="image/*"
             onChange={handleFileSelect}
           />
-          <button onClick={handleUpload}>
-            {language === "ko" ? "검색" : "Search"}
+        </span>
+        <button onClick={handleUpload}>
+          {language === "ko" ? "검색" : "Search"}
+        </button>
+        <div>
+          <button onClick={handleShowAllData}>
+            {language === "ko" ? "전체검색목록" : "Full Search List"}
           </button>
-        </div>
-        <div className="paper">
-          <div>
-            <button onClick={handleShowAllData}>
-              {language === "ko" ? "전체검색목록" : "Full Search List"}
+          {isLoggedIn && (
+            <button onClick={handleShowMyData}>
+              {language === "ko" ? "나의검색목록" : "My Search List"}
             </button>
-            {isLoggedIn && (
-              <button onClick={handleShowMyData}>
-                {language === "ko" ? "나의검색목록" : "My Search List"}
-              </button>
-            )}
-          </div>
-          <div className="listbox">
-            {displayedData.map((item, index) => (
-              <div key={index} className="list-item">
-                <div className="member-titleinfo">
-                  <span onClick={() => golandmark(index)}>
-                    {language === "ko"
-                      ? item.landInfo.nameKo
-                      : item.landInfo.nameEn}
-                  </span>
-                </div>
-                {item.member ? (
-                  <div key={item.landInfo.lid} className="member-nameinfo">
-                    {item.member.mname}
-                  </div>
-                ) : (
-                  <div key={item.landInfo.lid} className="member-nameinfo">
-                    {language === "ko" ? "비회원" : "guest"}
-                  </div>
-                )}
-                {user !== null && user.role === "ADMIN" && (
-                  <div className="member-xinfo">
-                    <img
-                      className="x-image"
-                      src={process.env.PUBLIC_URL + "/img/x.png"}
-                      alt=""
-                      onClick={() => del(index)}
-                    />
-                  </div>
-                )}
+          )}
+        </div>
+        <div
+          className="listbox"
+          style={{ maxHeight: "15vh", overflowY: "scroll" }}
+        >
+          {displayedData.map((item, index) => (
+            <div key={index} className="list-item">
+              <div className="member-titleinfo">
+                <span onClick={() => golandmark(index)}>
+                  {language === "ko"
+                    ? item.landInfo.nameKo
+                    : item.landInfo.nameEn}
+                </span>
               </div>
-            ))}
-          </div>
+              {item.member ? (
+                <div key={item.landInfo.lid} className="member-nameinfo">
+                  {item.member.mname}
+                </div>
+              ) : (
+                <div key={item.landInfo.lid} className="member-nameinfo">
+                  {language === "ko" ? "비회원" : "guest"}
+                </div>
+              )}
+              {user !== null && user.role === "ADMIN" && (
+                <div className="member-xinfo">
+                  <img
+                    className="x-image"
+                    src={process.env.PUBLIC_URL + "/img/x.png"}
+                    alt=""
+                    onClick={() => del(index)}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>
