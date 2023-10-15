@@ -220,10 +220,10 @@ button:hover {
 }
 
 
-.image{
+/* .image{
   width:100vw;
   
-}
+} */
 
 
 
@@ -239,7 +239,7 @@ button:hover {
 
   display:grid;
   grid-template-columns: 35vw 30vw 35vw;
-  grid-template-rows: 30vh 40vh 40vh;
+  grid-template-rows: 30vh 40vh 30vh;
   
 }
 
