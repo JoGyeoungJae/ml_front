@@ -8,8 +8,8 @@ function ImgUpload() {
   const [response, setResponse] = useState(""); // response 값을 상태로 관리
   const [responseListData, setResponseListData] = useState([]);
 
-  // lan의 초기값을 "ko"로 설정
-  const lan = "ko";
+  // lan의 초기값을 "en"으로 설정
+  const lan = "en";
   // 이미 sessionStorage에 "language" 키가 설정되어 있다면 그 값을 사용
   const storedLanguage = window.sessionStorage.getItem("language");
   const initialLanguage = storedLanguage || lan;
@@ -187,23 +187,28 @@ function ImgUpload() {
   return (
     <div className="bigbox">
       <div className="box1">
-        <div className="paper">
-          <h1 className="blue-text">
-            {language === "ko"
-              ? "서울 랜드마크 스캐너!"
-              : "Seoul Landmark Scanner!"}
-          </h1>
-          <div className="language-links blue-text">
+          
+          <div className="language">
             <a onClick={toggleLanguage}>
               {language === "ko" ? "English" : "한국어"}
             </a>
           </div>
-          <div className="blue-text">
+
+          <div className="text1">
+            {language === "ko"
+              ? "서울 랜드마크 스캐너!"
+              : "Seoul Landmark Scanner!"}
+          </div>
+          <div className="text2">
             {language === "ko"
               ? "사진을 업로드 하면 해당 랜드마크를 검색합니다."
               : "When you upload a photo, it searches for the corresponding landmark."}
           </div>
-          <div>
+          
+
+          
+          
+          <div className="loginout">
             {isLoggedIn ? (
               <button className="register" onClick={logout}>
                 {language === "ko" ? "로그아웃" : "Logout"}
@@ -219,7 +224,7 @@ function ImgUpload() {
               </>
             )}
           </div>
-        </div>
+        
       </div>
       <div className="box2"></div>
 
@@ -241,11 +246,11 @@ function ImgUpload() {
           {language === "ko" ? "검색" : "Search"}
         </button>
         <div>
-          <button onClick={handleShowAllData}>
+          <button className="button2" onClick={handleShowAllData}>
             {language === "ko" ? "전체검색목록" : "Full Search List"}
           </button>
           {isLoggedIn && (
-            <button onClick={handleShowMyData}>
+            <button className="button2" onClick={handleShowMyData}>
               {language === "ko" ? "나의검색목록" : "My Search List"}
             </button>
           )}
