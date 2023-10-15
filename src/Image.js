@@ -187,44 +187,39 @@ function ImgUpload() {
   return (
     <div className="bigbox">
       <div className="box1">
-          
-          <div className="language">
-            <a onClick={toggleLanguage}>
-              {language === "ko" ? "English" : "한국어"}
-            </a>
-          </div>
+        <div className="language">
+          <a onClick={toggleLanguage}>
+            {language === "ko" ? "Change to English" : "한글로 변경"}
+          </a>
+        </div>
 
-          <div className="text1">
-            {language === "ko"
-              ? "서울 랜드마크 스캐너!"
-              : "Seoul Landmark Scanner!"}
-          </div>
-          <div className="text2">
-            {language === "ko"
-              ? "사진을 업로드 하면 해당 랜드마크를 검색합니다."
-              : "When you upload a photo, it searches for the corresponding landmark."}
-          </div>
-          
+        <div className="text1">
+          {language === "ko"
+            ? "서울 랜드마크 스캐너!"
+            : "Seoul Landmark Scanner!"}
+        </div>
+        <div className="text2">
+          {language === "ko"
+            ? "사진을 업로드 하면 해당 랜드마크를 검색합니다."
+            : "When you upload a photo, it searches for the corresponding landmark."}
+        </div>
 
-          
-          
-          <div className="loginout">
-            {isLoggedIn ? (
-              <button className="register" onClick={logout}>
-                {language === "ko" ? "로그아웃" : "Logout"}
+        <div className="loginout">
+          {isLoggedIn ? (
+            <button className="register" onClick={logout}>
+              {language === "ko" ? "로그아웃" : "Logout"}
+            </button>
+          ) : (
+            <>
+              <button className="register" onClick={login}>
+                {language === "ko" ? "로그인" : "Sign in"}
               </button>
-            ) : (
-              <>
-                <button className="register" onClick={login}>
-                  {language === "ko" ? "로그인" : "Login"}
-                </button>
-                <button className="register" onClick={register}>
-                  {language === "ko" ? "회원가입" : "Sign up"}
-                </button>
-              </>
-            )}
-          </div>
-        
+              <button className="register" onClick={register}>
+                {language === "ko" ? "회원가입" : "Sign up"}
+              </button>
+            </>
+          )}
+        </div>
       </div>
       <div className="box2"></div>
 
@@ -245,7 +240,8 @@ function ImgUpload() {
         <button onClick={handleUpload}>
           {language === "ko" ? "검색" : "Search"}
         </button>
-        <div>
+
+        <div className="p2">
           <button className="button2" onClick={handleShowAllData}>
             {language === "ko" ? "전체검색목록" : "Full Search List"}
           </button>

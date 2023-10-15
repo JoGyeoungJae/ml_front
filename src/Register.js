@@ -76,51 +76,119 @@ function Register() {
   };
 
   return (
-    <div className="register-container">
-      <div className="language-links">
-        <a onClick={toggleLanguage}>
-          {language === "ko" ? "English" : "한국어"}
-        </a>
+    // <div className="register-container">
+
+    //   <div className="language-links">
+    //     <a onClick={toggleLanguage}>
+    //       {language === "ko" ? "English" : "한국어"}
+    //     </a>
+    //   </div>
+
+    //   <h2>{language === "ko" ? "회원가입" : "Sign up"}</h2>
+
+    //   <form onSubmit={handleSubmit}>
+    //     <div>
+    //       <input
+    //         type="text"
+    //         value={mname}
+    //         onChange={(e) => setMname(e.target.value)}
+    //         placeholder={
+    //           language === "ko" ? "이름을 입력하세요" : "Enter your name"
+    //         }
+    //       />
+    //     </div>
+    //     <div>
+    //       <input
+    //         type="tel"
+    //         value={mtel}
+    //         onChange={handlePhoneChange}
+    //         placeholder={
+    //           language === "ko"
+    //             ? "전화번호를 입력하세요 (예: 01012345678)"
+    //             : "Enter your phone number (ex: 01012345678)"
+    //         }
+    //       />
+    //     </div>
+    //     <div>
+    //       <button type="submit">
+    //         {" "}
+    //         {language === "ko" ? "제출" : "Submit"}
+    //       </button>
+    //     </div>
+    //   </form>
+
+    //   <div className="buttons">
+    //     <button onClick={handleGoBack}>
+    //       {language === "ko" ? "홈으로" : "Home"}
+    //     </button>
+    //     <button onClick={loginGo}>
+    //       {language === "ko" ? "로그인" : "Sign in"}
+    //     </button>
+    //   </div>
+
+    // </div>
+
+    <div className="bigbox">
+      <div className="box1">
+        <div className="language">
+          <a onClick={toggleLanguage}>
+            {language === "ko" ? "Change to English" : "한글로 변경"}
+          </a>
+        </div>
+
+        <div className="text1"></div>
+        <div className="text2"></div>
+
+        <div className="loginout"></div>
       </div>
-      <h2>{language === "ko" ? "회원가입" : "Sign up"}</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            value={mname}
-            onChange={(e) => setMname(e.target.value)}
-            placeholder={
-              language === "ko" ? "이름을 입력하세요" : "Enter your name"
-            }
-          />
-        </div>
-        <div>
-          <input
-            type="tel"
-            value={mtel}
-            onChange={handlePhoneChange}
-            placeholder={
-              language === "ko"
-                ? "전화번호를 입력하세요 (예: 01012345678)"
-                : "Enter your phone number (ex: 01012345678)"
-            }
-          />
-        </div>
-        <div>
-          <button type="submit">
-            {" "}
-            {language === "ko" ? "제출" : "Submit"}
+      <div className="box2"></div>
+
+      <div className="box3">
+        <div className="b1">{language === "ko" ? "회원가입" : "Sign up"}</div>
+
+        <form className="form" onSubmit={handleSubmit}>
+          <div className="b2">
+            <input
+              type="text"
+              value={mname}
+              onChange={(e) => setMname(e.target.value)}
+              placeholder={
+                language === "ko" ? "이름을 입력하세요" : "Enter your name"
+              }
+            />
+          </div>
+          <div className="b3">
+            <input
+              type="tel"
+              value={mtel}
+              onChange={handlePhoneChange}
+              placeholder={
+                language === "ko"
+                  ? "전화번호를 입력하세요 (예: 01012345678)"
+                  : "Enter your phone number (ex: 01012345678)"
+              }
+            />
+          </div>
+          <div className="b4">
+            <button type="submit">
+              {" "}
+              {language === "ko" ? "제출" : "Submit"}
+            </button>
+          </div>
+        </form>
+
+        <div className="b5">
+          <button onClick={handleGoBack}>
+            {language === "ko" ? "홈으로" : "Home"}
+          </button>
+          <button onClick={loginGo}>
+            {language === "ko" ? "로그인" : "Sign in"}
           </button>
         </div>
-      </form>
-      <div className="buttons">
-        <button onClick={handleGoBack}>
-          {language === "ko" ? "홈으로" : "Home"}
-        </button>
-        <button onClick={loginGo}>
-          {language === "ko" ? "로그인" : "Sign in"}
-        </button>
       </div>
+
+      <div className="box4"></div>
+      <div className="box5"></div>
     </div>
   );
 }

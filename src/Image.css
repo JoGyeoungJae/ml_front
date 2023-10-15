@@ -25,12 +25,20 @@ html,body{
   font-weight: bold;
   height: 15%;
 
+  font-size:0.8vw;
+
   display: flex; /* Flexbox 레이아웃 사용 */
   flex-direction: column; /* 열 방향으로 정렬 */
-  justify-content: center; /* 세로 중앙 정렬 */
+  justify-content: flex-end; /* 세로 중앙 정렬 */
   align-items: flex-end; /* 가로 중앙 정렬 */
 }
 
+a{
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: #63353F;
+}
 
 .text1 {
   height: 55%;
@@ -176,13 +184,13 @@ button:hover {
   padding-left: 3%;
 }
 .member-titleinfo span {
-  color: blue; /* 텍스트 색상을 변경 */
+  color: rgb(4, 87, 122); /* 텍스트 색상을 변경 */
   float: left;
 }
 .member-titleinfo span:hover {
   /* 마우스가 요소 위에 올라갔을 때 표시할 스타일 */
   font-weight: bold; /* 텍스트 굵기를 변경 */
-  color: red; /* 텍스트 색상을 변경 */
+  color: #1c26b1; /* 텍스트 색상을 변경 */
   cursor: pointer; /* 마우스 커서를 포인터로 변경 (클릭 가능한 요소임을 나타냄) */
 }
 .member-nameinfo {
@@ -221,7 +229,7 @@ button:hover {
 
 
 .bigbox{
-  background-image: url("C:\Users\Admin\Desktop\ml_project\ml_front\public\img\background1.jpg");
+  background-image: url("C:\Users\it\Desktop\lastpro\react\ml_front\public\img\background1.jpg");
   background-size: cover;
   height:100vh;
   margin:0;
