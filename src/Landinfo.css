@@ -75,6 +75,7 @@ body {
 
 
 .description-container {
+  font-size:1vw;
   text-align: center;
   width:85%;
   margin: 0 auto; /* 요소를 수평으로 가운데 정렬합니다. */
